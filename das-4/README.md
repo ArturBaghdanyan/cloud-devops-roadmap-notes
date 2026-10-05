@@ -10,7 +10,7 @@
 
 1. **Object Storage:** Տվյալները պահվում են որպես ամբողջական օբյեկտներ HTTP API-ի միջոցով։ Սա OS-ին կցվող դիսկ (HDD/SSD) կամ ֆայլային համակարգ չէ։
 
-2. **Region-Resilience (տարածաշրջանային կայունություն):** Թեև Bucket-ը ստեղծվում է մեկ konkrét Region-ում, **S3 Standard**-ը ձեր տվյալները ավտոմատ կերպով կրկնօրինակում է (replicate) առնվազն **3 Availability Zone (AZ)**-ներում։
+2. **Region-Resilience (տարածաշրջանային կայունություն):** Թեև Bucket-ը ստեղծվում է մեկ կոնկրետ Region-ում, **S3 Standard**-ը ձեր տվյալները ավտոմատ կերպով կրկնօրինակում է (replicate) առնվազն **3 Availability Zone (AZ)**-ներում։
 
 3. **Public-Zone Service:** S3-ը հասանելի է ինտերնետից Public Endpoints-ի միջոցով (REST API / HTTPS)։ **ԿԱՐԵՎՈՐ:** Լռելյայն (default) բոլոր ստեղծված Bucket-ներն ու Object-ները **ՄԱՍՆԱՎՈՐ ԵՆ (Private)**։
 
