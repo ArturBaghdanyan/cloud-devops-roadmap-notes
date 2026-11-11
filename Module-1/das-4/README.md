@@ -12,7 +12,7 @@
 
 2. **Region-Resilience (տարածաշրջանային կայունություն):** Թեև Bucket-ը ստեղծվում է մեկ կոնկրետ Region-ում, **S3 Standard**-ը ձեր տվյալները ավտոմատ կերպով կրկնօրինակում է (replicate) առնվազն **3 Availability Zone (AZ)**-ներում։
 
-3. **Public-Zone Service:** S3-ը հասանելի է ինտերնետից Public Endpoints-ի միջոցով (REST API / HTTPS)։ **ԿԱՐԵՎՈՐ:** Լռելյայն (default) բոլոր ստեղծված Bucket-ներն ու Object-ները **ՄԱՍՆԱՎՈՐ ԵՆ (Private)**։
+3. **Public-Zone Service:** S3-ը հասանելի է ինտերնետից Public Endpoints-ի միջոցով (REST API / HTTPS)։ **ԿԱՐԵՎՈՐ:** default (default) բոլոր ստեղծված Bucket-ներն ու Object-ները **ՄԱՍՆԱՎՈՐ ԵՆ (Private)**։
 
 4. **Practically Unlimited:** Չկա տարողության սահմանափակում։ Վճարում եք միայն իրական օգտագործված Gigabyte-ների, կատարված հարցումների (PUT/GET) և Data Out-ի համար։
 
@@ -174,8 +174,8 @@ S3-ը առաջարկում է տարբեր Storage Class-ներ՝ ծախսերը
 
 **Պատասխան:** Single `PUT` հարցումով առավելագույն չափսը **5 GB** է։ Եթե ֆայլը 5 GB-ից մեծ է (մինչև 5 TB), պետք է օգտագործել **Multipart Upload**:
 
-### Q5: Արդյո՞ք S3-ում ստեղծված նոր Bucket-ը հանրային է (Public) լռելյայն։
+### Q5: Արդյո՞ք S3-ում ստեղծված նոր Bucket-ը հանրային է (Public) default։
 
-**Պատասխան:** Ո՛չ: Լռելյայն բոլոր նոր ստեղծված Bucket-ներն ու դրանց պարունակությունը **մասնավոր են (Private)**, և ակտիվացված է "Block Public Access" ֆունկցիան։
+**Պատասխան:** Ո՛չ: default բոլոր նոր ստեղծված Bucket-ներն ու դրանց պարունակությունը **մասնավոր են (Private)**, և ակտիվացված է "Block Public Access" ֆունկցիան։
 
 ---

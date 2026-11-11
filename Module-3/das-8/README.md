@@ -5,6 +5,7 @@
 ---
 
 ## 🎯 Դասի Նպատակները
+
 1. Հասկանալ S3-ի անվտանգության ճարտարապետությունը (Security Model)։
 2. Տիրապետել **Bucket Policies**-ի JSON կառուցվածքին (Principal, Action, Resource, Effect, Condition)։
 3. Հասկանալ **S3 Block Public Access**-ի աշխատանքի սկզբունքը և կարևորությունը։
@@ -15,7 +16,7 @@
 
 ## 📚 1. S3 Անվտանգության Հիմունքները (S3 Security Overview)
 
-Լռելյայն (By default), AWS S3-ում ստեղծված բոլոր Bucket-ները և դրանց մեջ գտնվող Object-ները **մասնավոր են (Private)**: Միայն Bucket-ը ստեղծող AWS Account-ը (կամ դրա root/admin օգտատերերը) ունեն մուտքի իրավունք։
+default (By default), AWS S3-ում ստեղծված բոլոր Bucket-ները և դրանց մեջ գտնվող Object-ները **մասնավոր են (Private)**: Միայն Bucket-ը ստեղծող AWS Account-ը (կամ դրա root/admin օգտատերերը) ունեն մուտքի իրավունք։
 
 S3-ում մուտքի իրավունքները կառավարվում են 3 հիմնական մակարդակներում.
 
@@ -43,10 +44,7 @@ Bucket Policy-ն JSON ձևաչափով գրված փաստաթուղթ է, որ�
       "Principal": {
         "AWS": "arn:aws:iam::123456789012:user/DevUser"
       },
-      "Action": [
-        "s3:GetObject",
-        "s3:PutObject"
-      ],
+      "Action": ["s3:GetObject", "s3:PutObject"],
       "Resource": [
         "arn:aws:s3:::my-company-bucket",
         "arn:aws:s3:::my-company-bucket/*"
@@ -63,24 +61,25 @@ Bucket Policy-ն JSON ձևաչափով գրված փաստաթուղթ է, որ�
 
 ### 🔍 Բաղադրիչների Բացատրություն
 
-* **`Effect`:** `Allow` (Թույլատրել) կամ `Deny` (Արգելել)։
-* **`Principal`:** Ով է ստանում թույլտվությունը (AWS Account, IAM User/Role, կամ `"*"` ցանկացած մարդու համար)։
-* **`Action`:** S3-ի API գործողությունները, օրինակ՝
-  * `s3:GetObject` — Ֆայլ ներբեռնել (Read)
-  * `s3:PutObject` — Ֆայլ ապլոդ անել (Write)
-  * `s3:ListBucket` — Bucket-ի պարունակությունը տեսնել (List)
-  * `s3:DeleteObject` — Ֆայլ ջնջել (Delete)
-* **`Resource`:** AWS ARN (Amazon Resource Name)։
-  * `arn:aws:s3:::my-bucket` -> Վերաբերում է ինքնին Bucket-ին (օր.՝ List operations)։
-  * `arn:aws:s3:::my-bucket/*` -> Վերաբերում է Bucket-ի ներսի **բոլոր ֆայլերին (Objects)** (օր.՝ GetObject, PutObject)։
-* **`Condition` (Ոչ պարտադիր):** Լրացուցիչ պայմաններ (օր.՝ միայն SSL/HTTPS կապ, կոնկրետ IP հասցե, կամ կոնկրետ ժամին)։
+- **`Effect`:** `Allow` (Թույլատրել) կամ `Deny` (Արգելել)։
+- **`Principal`:** Ով է ստանում թույլտվությունը (AWS Account, IAM User/Role, կամ `"*"` ցանկացած մարդու համար)։
+- **`Action`:** S3-ի API գործողությունները, օրինակ՝
+  - `s3:GetObject` — Ֆայլ ներբեռնել (Read)
+  - `s3:PutObject` — Ֆայլ ապլոդ անել (Write)
+  - `s3:ListBucket` — Bucket-ի պարունակությունը տեսնել (List)
+  - `s3:DeleteObject` — Ֆայլ ջնջել (Delete)
+- **`Resource`:** AWS ARN (Amazon Resource Name)։
+  - `arn:aws:s3:::my-bucket` -> Վերաբերում է ինքնին Bucket-ին (օր.՝ List operations)։
+  - `arn:aws:s3:::my-bucket/*` -> Վերաբերում է Bucket-ի ներսի **բոլոր ֆայլերին (Objects)** (օր.՝ GetObject, PutObject)։
+- **`Condition` (Ոչ պարտադիր):** Լրացուցիչ պայմաններ (օր.՝ միայն SSL/HTTPS կապ, կոնկրետ IP հասցե, կամ կոնկրետ ժամին)։
 
 ---
 
 ## 🛠️ 3. Իրական Օրինակներ (Bucket Policy Examples)
 
 ### Օրինակ 1. Հանրային Վեբ-Կայքի համար (Public Read Only)
-*Եթե S3-ը օգտագործում եք static website hosting-ի համար.*
+
+_Եթե S3-ը օգտագործում եք static website hosting-ի համար._
 
 ```json
 {
@@ -98,7 +97,8 @@ Bucket Policy-ն JSON ձևաչափով գրված փաստաթուղթ է, որ�
 ```
 
 ### Օրինակ 2. Սահմանափակում ըստ IP Հասցեի (Restrict to Office IP)
-*Թույլատրել ֆայլեր ներբեռնել միայն ընկերության օֆիսային IP-ից (`198.51.100.14/32`):*
+
+_Թույլատրել ֆայլեր ներբեռնել միայն ընկերության օֆիսային IP-ից (`198.51.100.14/32`):_
 
 ```json
 {
@@ -121,7 +121,8 @@ Bucket Policy-ն JSON ձևաչափով գրված փաստաթուղթ է, որ�
 ```
 
 ### Օրինակ 3. Պարտադրել HTTPS (Enforce SSL/TLS)
-*Արգելել (Deny) ցանկացած հարցում, որը չի օգտագործում HTTPS:*
+
+_Արգելել (Deny) ցանկացած հարցում, որը չի օգտագործում HTTPS:_
 
 ```json
 {
@@ -154,11 +155,11 @@ Bucket Policy-ն JSON ձևաչափով գրված փաստաթուղթ է, որ�
 
 BPA-ն ունի 4 հիմնական կանոն (Checkboxes):
 
-| Կանոն (Setting) | Ինչ է անում |
-| :--- | :--- |
-| **1. Block public ACLs** | Արգելում է նոր **Public ACL**-ների ավելացումը ֆայլերին կամ bucket-ին։ |
-| **2. Ignore public ACLs** | Անտեսում է եղած բոլոր Public ACL-ները (ֆայլերը դառնում են private)։ |
-| **3. Block public bucket policies** | Արգելում է ավելացնել **նոր Public Bucket Policy** (օր.՝ `Principal: "*"`): |
+| Կանոն (Setting)                            | Ինչ է անում                                                                  |
+| :----------------------------------------- | :--------------------------------------------------------------------------- |
+| **1. Block public ACLs**                   | Արգելում է նոր **Public ACL**-ների ավելացումը ֆայլերին կամ bucket-ին։        |
+| **2. Ignore public ACLs**                  | Անտեսում է եղած բոլոր Public ACL-ները (ֆայլերը դառնում են private)։          |
+| **3. Block public bucket policies**        | Արգելում է ավելացնել **նոր Public Bucket Policy** (օր.՝ `Principal: "*"`):   |
 | **4. Block public & cross-account access** | Անտեսում է եղած Public Bucket Policy-ները և արգելում Cross-Account access-ը։ |
 
 > ⚠️ **Կարևոր կանոն:**  
@@ -172,24 +173,26 @@ BPA-ն ունի 4 հիմնական կանոն (Checkboxes):
 
 1. **Explicit Deny (Ուղղակի արգելք):** Եթե ԿԱ որևէ `Deny` (IAM-ում, Bucket Policy-ում կամ BPA-ում) -> **ACCESS DENIED**:
 2. **Explicit Allow (Ուղղակի թույլտվություն):** Եթե `Deny` չկա և ԿԱ գոնե մեկ `Allow` -> **ACCESS GRANTED**:
-3. **Implicit Deny (Լռելյայն արգելք):** Եթե չկա ոչ `Deny`, ոչ `Allow` -> **ACCESS DENIED**:
+3. **Implicit Deny (default արգելք):** Եթե չկա ոչ `Deny`, ոչ `Allow` -> **ACCESS DENIED**:
 
 ---
 
 ## 🛠️ 6. Ինչպես կառավարել S3 Security-ն տարբեր գործիքներով
 
 ### 1. AWS Management Console (Վեբ ինտերֆեյս)
-* Գնալ **S3 Service** -> Ընտրել **Bucket-ը** -> Մտնել **Permissions** tab:
-* Այնտեղ կարող եք խմբագրել **Block public access (bucket settings)** և **Bucket policy** բաժինները։
+
+- Գնալ **S3 Service** -> Ընտրել **Bucket-ը** -> Մտնել **Permissions** tab:
+- Այնտեղ կարող եք խմբագրել **Block public access (bucket settings)** և **Bucket policy** բաժինները։
 
 ### 2. AWS CLI (Command Line Interface)
 
-* **Bucket Policy ավելացնել:**
+- **Bucket Policy ավելացնել:**
+
   ```bash
   aws s3api put-bucket-policy --bucket my-bucket-name --policy file://policy.json
   ```
 
-* **Block Public Access-ը միացնել (Block all):**
+- **Block Public Access-ը միացնել (Block all):**
   ```bash
   aws s3api put-public-access-block \
       --bucket my-bucket-name \
@@ -254,7 +257,7 @@ resource "aws_s3_bucket_policy" "allow_tls_only" {
 
 ## 📌 Summary Cheatsheet
 
-* **IAM Policy:** Վերաբերում է **Օգտատիրոջը** (Who can do what)։
-* **Bucket Policy:** Վերաբերում է **Bucket-ին** (Who can access this bucket)։
-* **Block Public Access:** Անվտանգության վերին շերտ (Master switch for public access)։
-* **Explicit Deny > Explicit Allow:** Եթե կա `Deny`, այն միշտ հաղթում է `Allow`-ին։
+- **IAM Policy:** Վերաբերում է **Օգտատիրոջը** (Who can do what)։
+- **Bucket Policy:** Վերաբերում է **Bucket-ին** (Who can access this bucket)։
+- **Block Public Access:** Անվտանգության վերին շերտ (Master switch for public access)։
+- **Explicit Deny > Explicit Allow:** Եթե կա `Deny`, այն միշտ հաղթում է `Allow`-ին։

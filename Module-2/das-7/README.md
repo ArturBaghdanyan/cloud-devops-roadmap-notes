@@ -2,7 +2,6 @@
 
 ## Lesson 3. IAM Roles
 
-
 ## 1. Ընդհանուր պատկեր
 
 Lesson 2-ում սովորեցինք **user-ներ** և **group-եր**. նրանք ունեն **մշտական ինքնություն** (գաղտնաբառ, access key-եր)։ Բայց AWS-ում շատ հաճախ գործողություններ պետք է անի ոչ թե կոնկրետ մարդը, այլ.
@@ -143,7 +142,7 @@ Role-ի մեջ **երկու տարբեր հարց** կա, և դրանց պատա
 ### Ժամանակավոր credentials
 
 - Բաղկացած են **երեք մասից**. Access Key ID, Secret Access Key և **Session Token**
-- Ունեն **ժամկետ** (session duration). լռելյայն՝ **1 ժամ**. role-ի համար կարելի է սահմանել մինչև **12 ժամ**
+- Ունեն **ժամկետ** (session duration). default՝ **1 ժամ**. role-ի համար կարելի է սահմանել մինչև **12 ժամ**
 - Ժամկետը լրանալուց հետո դադարում են գործել. պետք չէ ձեռքով ջնջել կամ «պտտել» (rotate)
 - Եթե արտահոսեն, վնասը սահմանափակ է ժամանակով (long-term key-ի համեմատ)
 
@@ -398,7 +397,7 @@ aws s3 ls s3://my-bucket
 
 1. Role-ը ժամանակավոր ստանձնվող ինքնություն է՝ թույլտվություններով։ Ի տարբերություն user-ի, այն **չունի գաղտնաբառ կամ երկարաժամկետ access key-եր**, ու դրանով կարող է աշխատել ցանկացած իրավասու ինքնություն։
 2. **Trust policy**-ն որոշում է, թե **ով** կարող է ստանձնել role-ը։ **Permissions policy**-ն որոշում է, թե ստանձնելուց հետո **ինչ** կարելի է անել։
-3. **Ժամանակավոր credentials** (Access Key ID, Secret Access Key, Session Token)։ Լռելյայն՝ 1 ժամ. role-ի համար կարելի է սահմանել մինչև 12 ժամ։
+3. **Ժամանակավոր credentials** (Access Key ID, Secret Access Key, Session Token)։ default՝ 1 ժամ. role-ի համար կարելի է սահմանել մինչև 12 ժամ։
 4. Role-ով key-եր **գոյություն չունեն**. չեն արտահոսում Git-ում, ավտոմատ լրանում և թարմացվում են, ու չի պահանջվում ձեռքով rotation։
 5. Trust policy-ում թույլատրվում է **EC2 ծառայությանը** ստանձնել այս role-ը։
 6. Ոչ։ Session-ի ընթացքում գործում են **միայն role-ի** թույլտվությունները։ Սեփականները վերադառնում են, երբ դուրս ես գալիս role-ից։
@@ -453,4 +452,3 @@ Credentials = ժամանակավոր (Access Key + Secret + Session Token)
 
 - [AWS JSON policy elements: Principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html), Principal-ի տարբերակները trust policy-ում
 - [Grant a user permissions to pass a role to an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html), `iam:PassRole`
-

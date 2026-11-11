@@ -26,7 +26,7 @@ Amazon S3-ը թույլ է տալիս հոսթինգ անել ստատիկ վե�
 - `http://<bucket-name>.s3-website.<region>.amazonaws.com`
 - `http://<bucket-name>.s3-website-<region>.amazonaws.com`
 
-> ⚠️ **Կարևոր է:** S3 Static Website Endpoint-ները լռելյայն աջակցում են **միայն HTTP** (առանց native HTTPS/SSL support-ի): HTTPS ապահովելու համար օգտագործվում է **AWS CloudFront**:
+> ⚠️ **Կարևոր է:** S3 Static Website Endpoint-ները default աջակցում են **միայն HTTP** (առանց native HTTPS/SSL support-ի): HTTPS ապահովելու համար օգտագործվում է **AWS CloudFront**:
 
 ---
 

@@ -8,13 +8,13 @@
 
 OSI (Open Systems Interconnection) մոդելը նկարագրում է ցանցային հաղորդակցության 7 շերտերը (Layers).
 
-1. **Layer 7 - Application (Կիրառական):** HTTP, HTTPS, SSH, FTP, DNS (Օգտատիրոջ ինտերֆեյսին մոտ շերտ)։
-2. **Layer 6 - Presentation (Ներկայացման):** Տվյալների վերծանում/գաղտնագրում (Encryption/Decryption), SSL/TLS, JSON/XML:
-3. **Layer 5 - Session (Սեսիայի):** Հաղորդակցման սեսիայի կառավարում (RPC, NetBIOS):
+1. **Layer 1 - Physical (Ֆիզիկական):** Էլեկտրական ազդանշաններ, մալուխներ (Ethernet), Wi-Fi:
+2. **Layer 2 - Data Link (Կապուղային):** Տվյալների կադրեր (Frames), **MAC հասցեներ**, Switch-եր։
+3. **Layer 3 - Network (Ցանցային):** Երթուղավորում (Routing), **IP հասցեավորում** (IPv4, IPv6), Router-ներ։
 4. **Layer 4 - Transport (Տրանսպորտային):** Տվյալների փոխանցում հանգույցների միջև՝ **TCP** (հուսալի) և **UDP** (արագ) արձանագրություններ, Port-եր (օր.՝ Port 80, 443, 22, 53)։
-5. **Layer 3 - Network (Ցանցային):** Երթուղավորում (Routing), **IP հասցեավորում** (IPv4, IPv6), Router-ներ։
-6. **Layer 2 - Data Link (Կապուղային):** Տվյալների կադրեր (Frames), **MAC հասցեներ**, Switch-եր։
-7. **Layer 1 - Physical (Ֆիզիկական):** Էլեկտրական ազդանշաններ, մալուխներ (Ethernet), Wi-Fi:
+5. **Layer 5 - Session (Սեսիայի):** Հաղորդակցման սեսիայի կառավարում (RPC, NetBIOS):
+6. **Layer 6 - Presentation (Ներկայացման):** Տվյալների վերծանում/գաղտնագրում (Encryption/Decryption), SSL/TLS, JSON/XML:
+7. **Layer 7 - Application (Կիրառական):** HTTP, HTTPS, SSH, FTP, DNS (Օգտատիրոջ ինտերֆեյսին մոտ շերտ)։
 
 ---
 
@@ -68,6 +68,13 @@ CIDR-ը մեթոդ է, որով սահմանվում է IP հասցեների տ
 
 > 💡 **Կանոն:** Ինչքան **փոքր** է prefix-ի թիվը (օր. `/16`), այնքան **շատ** IP հասցեներ կան ցանցում:
 
+## /24 (Subnet Mask: 255.255.255.0)
+
+- Ընդհանուր IPv4 հասցեն `/32` բիթ է: Եթե նշված է `/24`, նշանակում է՝
+  - Ցանց-> առաջին {24} բիթը
+  - Սարքեր {$32 - 24 = 8$} բիթը
+- 8 բիթը տալիս է $2^8 = 256$ հնարավոր հասցե, որոնցից 254-ը հասանելի են սարքերի համար (քանի որ առաջինը ցանցի հասցեն է, իսկ վերջինը՝ Broadcast):
+
 ---
 
 ## ☁️ 5. AWS Load Balancers & Layer 4/7
@@ -108,28 +115,29 @@ AWS-ում ցանց ստեղծելու, կարգավորելու և դրանց �
 Ամենապոպուլյար cross-cloud գործիքն է՝ VPC, Subnet-ներ, Security Group-ներ (TCP/UDP կանոններով) և CIDR բլոկներ կառուցելու համար։
 
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
-    Name = "My-Production-VPC"
-  }
+tags = {
+Name = "My-Production-VPC"
+}
 }
 
 resource "aws_subnet" "public" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1a"
+vpc_id = aws_vpc.main.id
+cidr_block = "10.0.1.0/24"
+availability_zone = "us-east-1a"
 }
 
 # TCP Security Group-ի օրինակ
-resource "aws_security_group" "web_sg" {
-  name   = "web-server-sg"
-  vpc_id = aws_vpc.main.id
 
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group" "web_sg" {
+name = "web-server-sg"
+vpc_id = aws_vpc.main.id
+
+ingress {
+from_port = 80
+to_port = 80
+protocol = "tcp"
+cidr_blocks = ["0.0.0.0/0"]
+}
 }
